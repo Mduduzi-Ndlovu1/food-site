@@ -8,7 +8,9 @@ import Loader from './Loader';
 import { deleteObject, getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { storage } from '../firebase.config';
 import { snapshotEqual } from 'firebase/firestore';
-import { saveItem } from '../utils/FirebaseFunctions';
+import { getAllFoodItems, saveItem } from '../utils/FirebaseFunctions';
+import { actionType } from '../context/reducer';
+import { useStateValue } from '../context/StateProvider';
 
 const CreateContainer = () => {
 
@@ -21,6 +23,8 @@ const CreateContainer = () => {
   const [msg, setMsg] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [imageAssest, setImageAsset] = useState(null);
+  const [{}, dispatch] = useStateValue();
+
 
   const uploadImage = (e) =>{
     setIsLoading(true);
@@ -72,7 +76,7 @@ const CreateContainer = () => {
   const saveDetails = () =>{
     setIsLoading(true);
     try {
-      if (!title || !calories || !imageAssest || !price || !category) {
+      if (!title || !calories  || !price  || !imageAssest || !category ) {
         setFields(true);
       setMsg("Required Fields can't be empty");
       setalertStatus("danger")
@@ -92,15 +96,18 @@ const CreateContainer = () => {
           price: price
         }
         saveItem(data);
-        setIsLoading(false)
-        setFields(true)
-          setMsg("Data uploaded sucessfully");
-          clearData();
-          setalertStatus('success');
-          setTimeout(() =>{
-            setFields(false);
+        setIsLoading(false);
+        setFields(true);
+        setMsg("Data uploaded sucessfully");
+        
+        setalertStatus('success');
+        setTimeout(() =>{
+        setFields(false);
+        clearData();
             
           },4000);
+
+          fetchData();
       }
       
       
@@ -122,8 +129,20 @@ const CreateContainer = () => {
     setImageAsset(null);
     setCalories("");
     setPrice("");
-    setCalories("Select Category");
-  }
+    setCategory("");
+  };
+
+  
+
+  const fetchData = async () => {
+    await getAllFoodItems().then(data => {
+      dispatch({
+        type: actionType.SET_FOOD_ITEMS,
+        foodItems : data
+      })
+
+    })
+  };
 
   return (
     <div className='w-full min-h-screen  flex items-center justify-center'>
@@ -151,7 +170,7 @@ const CreateContainer = () => {
 
         {/* for selecting catergories */}
         <div className='w-full'>
-          <select onChange={(e) => e.target.value } className='outline-none w-full text-base border-b-2 border-gray-200 p-2 rounded-md cursor-pointer' >
+          <select onChange={(e) => setCategory(e.target.value) } className='outline-none w-full text-base border-b-2 border-gray-200 p-2 rounded-md cursor-pointer' >
             <option value="other" className='bg-white'>Select Catergory</option>
             {catergories && catergories.map(item => (
               <option key={item.id} className='text-base border-0 outline-none capitalize bg-white text-headingColor' value={item.urlParaName}>{item.name}</option>
@@ -162,31 +181,31 @@ const CreateContainer = () => {
         {/* for inserting img */}
 
         <div className='group flex justify-center items-center flex-col border-2 border-dotted border-gray-300 w-full h-225 md:h-420 cursor-pointer rounded-lg'>
-          {isLoading ? <Loader/> : <>
-              {!imageAssest ? <>
+          {isLoading ? ( <Loader/> ): (
+          <>
+              {!imageAssest ? (<>
                 <label htmlFor="" className='w-full h-full flex flex-col items-center justify-center cursor-pointer'>
                   <div className='w-full h-full flex flex-col items-center justify-center gap-2'>
                     <MdCloudUpload className='text-gray-500 text-3xl hover:text-gray-700'/>
-                    <p className='text-gray-500 S hover:text-gray-700'>Click here to upload</p>
                     <input type="file"
                   name='uploadimage'
                   accept='image/*'
                   onChange={uploadImage}
                   className='w-80 h-80' />
+                  
                   </div>
 
-                  
-
                 </label>
-              </> : <>
+              </> ) : (
+              <>
               <div className='relative h-full'>
-                <img src={imageAssest} alt="Uploaded " className='w-full -h-full object-cover'/>
-                <button type='button' className='absolute bottom-3 right-3 p-3 rounded-full bg-red-500 cursor-pointer outline-none hover:shadpw-md duration-500 transition-all ease-in-out'
+                <img src={imageAssest} alt="Uploaded " className='w-full h-full object-cover'/>
+                <button type='button' className='absolute bottom-3 right-3 p-3 rounded-full bg-red-500 text-xl cursor-pointer outline-none hover:shadow-md duration-500 transition-all ease-in-out'
                 onClick={deleteImage}> <MdDelete className='text-white'/></button>
               </div>
               
-              </>}
-          </>}
+              </>)}
+          </>)}
 
         </div>
 

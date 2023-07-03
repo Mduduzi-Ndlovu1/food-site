@@ -23,7 +23,7 @@ const Header = () => {
     const firebaseAuth = getAuth(app);
     const provider = new GoogleAuthProvider();
 
-    const [{user},dispatch] = useStateValue();
+    const [{user,cartShow,cartItems},dispatch] = useStateValue();
 
     // this state is to keep track of the clicked new item to then be able to createContent
     const [isMenu, setisMenu] = useState(false);
@@ -54,6 +54,15 @@ const Header = () => {
         })
     }
 
+    const showCart = () => {
+        dispatch(
+            {
+                type: actionType.SET_CART_SHOW,
+                cartShow: !cartShow,
+            });
+
+    }
+
   return (
     <header className='fixed z-50 w-screen p-3 px-4 md:p-6 md:px-16 bg-primary'>
         {/* this is for desktop and tablet */}
@@ -77,12 +86,16 @@ const Header = () => {
                 <li className='text-base text-textColor hover:text-headingColor duration-100 cursor-pointer'>Contact Us</li>
             </motion.ul>
             {/* img and cart components */}
-            <motion.div whileTap={{scale : 0.6}} className='relative flex items-center justify-center '>
+            <motion.div whileTap={{scale : 0.6}} className='relative flex items-center justify-center '
+            onClick={showCart}
+            >
                 <MdShoppingBasket className='text-textColor text-2xl  cursor-pointer'/>
 
-                <div className=' absolute -top-2.5 -right-2.5 w-5 h-5 rounded-full bg-cartNumBg'>
-                    <p className=' text-xs flex items-center justify-center text-white font-semibold '>2</p>
-                </div>
+                {cartItems && cartItems.length > 0 && (
+                        <div className=' absolute -top-2.5 -right-2.5 w-5 h-5 rounded-full bg-cartNumBg'>
+                        <p className=' text-xs flex items-center justify-center text-white font-semibold '>{cartItems.length}</p>
+                    </div>
+                    )}
             </motion.div>
             
           <div className='relative'>
@@ -124,12 +137,16 @@ const Header = () => {
         {/* this is for mobile */}
         <div className='flex items-center justify-between md:hidden w-full h-full'>
 
-        <motion.div whileTap={{scale : 0.6}} className='relative flex items-center justify-center '>
+        <motion.div whileTap={{scale : 0.6}} className='relative flex items-center justify-center '
+        onClick={showCart}
+        >
                 <MdShoppingBasket className='text-textColor text-2xl  cursor-pointer'/>
 
-                <div className=' absolute -top-2.5 -right-2.5 w-5 h-5 rounded-full bg-cartNumBg'>
-                    <p className=' text-xs flex items-center justify-center text-white font-semibold '>2</p>
-                </div>
+                {cartItems && cartItems.length > 0 && (
+                        <div className=' absolute -top-2.5 -right-2.5 w-5 h-5 rounded-full bg-cartNumBg'>
+                        <p className=' text-xs flex items-center justify-center text-white font-semibold '>{cartItems.length}</p>
+                    </div>
+                    )}
             </motion.div>
             
         <Link to={'/'} className='flex items-center gap-2'>
