@@ -1,11 +1,12 @@
 import I1 from '../img/img/i1.png';
-import F1 from '../img/img/f1.png';
+import F1 from '../img/img/burger with chips.jpg';
 import C3 from '../img/img/c3.png';
+import C7 from '../img/img/c7.png';
 import Fi1 from '../img/img/fi1.png';
 
 export const heroData = [
-    {id: 1, name:'icecream',desc:'Choclate And Vanilla',price: 'R 50' , immgSrc:I1},
-    {id: 2, name:'Strawberries',desc:'Fresh Strawberries ',price: 'R 50' , immgSrc:F1},
+    {id: 1, name:'Chicken',desc:'Chicken and Chips',price: 'R 50' , immgSrc: C7},
+    {id: 2, name:'Burger and Chips',desc:'Delicious Burger Meal ',price: 'R 50' , immgSrc:F1},
     {id: 3, name:'Chicken Kebab',desc:'Mixed Kebab Plate',price: 'R 50' , immgSrc:C3},
     {id: 4, name:'Fish Kebab',desc:'Choclate And Vanilla',price: 'R 50' , immgSrc:Fi1},
   ];
@@ -18,13 +19,13 @@ export const catergories = [
   },
   {
     id: 2,
-    name: "Curry",
-    urlParaName: "curry",
+    name: "Burger",
+    urlParaName: "burger",
   },
   {
     id: 3,
-    name: "Rice",
-    urlParaName: "rice",
+    name: "Russian & Chips",
+    urlParaName: "russian and chips",
   },
   {
     id: 4,
@@ -32,14 +33,9 @@ export const catergories = [
     urlParaName: "fish",
   },
   {
-    id: 5,
-    name: "Fruits",
-    urlParaName: "fruits",
-  },
-  {
     id: 6,
-    name: "Icecreams",
-    urlParaName: "icecream",
+    name: "Salad",
+    urlParaName: "salad",
   },
   {
     id: 7,

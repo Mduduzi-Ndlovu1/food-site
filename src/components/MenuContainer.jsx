@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import RowContainer from './RowContainer';
 import { useStateValue } from '../context/StateProvider';
-
+import Header from './Header';
 const MenuContainer = () => {
     const [filter, setFilter] = useState("chicken");
 
@@ -31,7 +31,7 @@ const MenuContainer = () => {
                 <div className={`w-10 h-10 rounded-full shadow-xl ${filter === category.urlParaName ? 'bg-white' : 'bg-cartNumBg'} group-hover:bg-card flex items-center justify-center`}>
                     <IoFastFood className={`${filter === category.urlParaName ? 'text-textColor' : 'text-white'} group-hover:text-textColor text-lg`}/>
                 </div>
-                <p className={`text-base ${filter === category.urlParaName ? 'text-white' : 'text-textColor'} group-hover:text-white`}>{category.name}</p>
+                <p className={`text-base ${filter === category.urlParaName ? 'text-white' : 'text-textColor'} items-center justify-center group-hover:text-white`}>{category.name}</p>
             </motion.div>
             ))}
           </div>

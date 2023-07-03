@@ -6,6 +6,7 @@ import RowContainer from './RowContainer';
 import { useStateValue } from '../context/StateProvider';
 import MenuContainer from './MenuContainer';
 import CartComponent from './CartComponent';
+import ContactUs from './ContactUs';
 
 const MainContainer = () => {
   const [{foodItems,cartShow},dispatch] = useStateValue();
@@ -14,7 +15,7 @@ const MainContainer = () => {
     useEffect(() => {}, [scrollValue,cartShow])
 
   return (
-    <div className='flex w-full h-auto flex-col items-center justify-center overflow-x-hidden'>
+    <div  className='flex w-full h-auto flex-col items-center justify-center overflow-x-hidden'>
       <HomeContainer/>
 
       <section className='w-full my-6'>
@@ -22,7 +23,7 @@ const MainContainer = () => {
           <p className='text-2xl font-semibold capitalize text-headingColor relative 
           before:absolute before:rounded-lg before:content before:w-20 before:h-1 before:-bottom-2 before:left-0 before:bg-gradient-to-tr from-orange-400 to-orange-600 transition-all ease-in-out duration-100 
           
-          '> Our Fresh & Healthy fruits</p>
+          '> Our speciality and favourites</p>
           <div className='hidden md:flex gap-3 items-center'>
             <motion.div 
             whileTap={{scale: 0.75}} 
@@ -42,7 +43,7 @@ const MainContainer = () => {
         </div>
         <RowContainer
         scrollValue = {scrollValue}
-        flag={true} data={foodItems ?.filter(n => n.category === "fruits")}/>
+        flag={true} data={foodItems ?.filter(n => n.category === "chicken")}/>
 
 
       </section>
@@ -52,7 +53,7 @@ const MainContainer = () => {
         {cartShow && (
           <CartComponent/>
         )}
-     
+     <ContactUs/>
     </div>
 
 

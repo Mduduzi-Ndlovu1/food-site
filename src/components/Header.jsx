@@ -6,7 +6,7 @@ import {motion} from 'framer-motion';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { app } from '../firebase.config';
 
-import Logo from '../img/img/logo.png';
+import Logo from '../img/img/Logo.png';
 import Avater from '../img/img/avatar.png';
 
 
@@ -62,14 +62,20 @@ const Header = () => {
             });
 
     }
+    const scrollToSection = (id) => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      };
 
   return (
-    <header className='fixed z-50 w-screen p-3 px-4 md:p-6 md:px-16 bg-primary'>
+    <header  className='fixed z-50 w-screen p-3 px-4 md:p-6 md:px-16 bg-primary'>
         {/* this is for desktop and tablet */}
-        <div className='hidden md:flex w-full h-full items-center justify-between '>
+        <div className='hidden md:flex w-full h-full items-center justify-between   '>
             <Link to={'/'} className='flex items-center gap-2'>
-                <img src={Logo} alt="logo" className='w-8 object-cover' />
-                <p className='text-headingColor text-xl font-bold '>City</p>
+                <img src={Logo} alt="logo" className='w-16 rounded-3xl object-cover' />
+                
             </Link>
             <div className='flex items-center gap-8'>
                 {/* nav bar components */}
@@ -80,10 +86,10 @@ const Header = () => {
             
             
             className='flex items-center gap-8  '>
-                <li className='text-base text-textColor hover:text-headingColor duration-100 cursor-pointer'>Home</li>
-                <li className='text-base text-textColor hover:text-headingColor duration-100 cursor-pointer'>Menu</li>
-                <li className='text-base text-textColor hover:text-headingColor duration-100 cursor-pointer'>About Us</li>
-                <li className='text-base text-textColor hover:text-headingColor duration-100 cursor-pointer'>Contact Us</li>
+                <li className='text-base text-textColor hover:text-headingColor duration-100 cursor-pointer'><button onClick={() => scrollToSection('home')}>Home</button></li>
+                <li className='text-base text-textColor hover:text-headingColor duration-100 cursor-pointer'><button onClick={() => scrollToSection('menu')}>Menu</button></li>
+                <li className='text-base text-textColor hover:text-headingColor duration-100 cursor-pointer'><button onClick={() => scrollToSection('about')}>About Us</button></li>
+                <li className='text-base text-textColor hover:text-headingColor duration-100 cursor-pointer'><button onClick={() => scrollToSection('contact')}>Contact Us</button></li>
             </motion.ul>
             {/* img and cart components */}
             <motion.div whileTap={{scale : 0.6}} className='relative flex items-center justify-center '
