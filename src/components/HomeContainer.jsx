@@ -40,7 +40,7 @@ const HomeContainer = () => {
 
              <p className='text-[10px] lg:text-sm lg:my-3 text-lighttextGray font-semibold my-1'>{n.desc}</p>
 
-             <p className='text-m font-semibold text-headingColor'><span className='text-xs text-red-600'>R</span> {n.price} </p>
+             <p className='text-m font-semibold text-headingColor'><span className='text-xs text-red-600'></span> {n.price} </p>
            </div>
            ))}
 
